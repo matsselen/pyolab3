@@ -102,7 +102,7 @@ def findRecords():
                         else:
                             # shouldn't ever get here but check just in case
                             if G.logData:
-                                G.logFile.write("\nguessed wrong recType ' + hex(recType) + ' at i = "+str(i))
+                                G.logFile.write("\nguessed wrong recType " + hex(recType) + " at i = "+str(i))
                     else:
                         break
             i += 1
