@@ -222,13 +222,12 @@ def decodeDataPayloads():
 
                 i += (2 + G.lastSensorBytes[thisSensor])
 
-            G.lastFrame = frameNumber
-            G.lastRF = rfStatistics
-
             # dump some info every 1000 records
-            if (n % 1000 == 0 or nOflow > 0) and G.logData: 
+            if (n % 1000 == 0 or nOflow > 0 or frameNumber - G.lastFrame > 1) and G.logData: 
                 G.logFile.write("\n*"+str(n)+"-"+str(dbgSensorBytes))
 
+            G.lastFrame = frameNumber
+            G.lastRF = rfStatistics
 
         G.nextRecord = nRec
 
