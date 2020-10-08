@@ -16,9 +16,9 @@ parameters for the system and for this analysis code.
 class G(object):
 
     # control varialbles
-    sleepTimeRead = 0.05 # time to sleep each read loop
-    sleepTimeAnal = 0.11 # time to sleep each analysis loop
-    sleepCommand  = 0.10 # time to sleep after a command is sent
+    sleepTimeRead = 0.025 # time to sleep each read loop
+    sleepTimeAnal = 0.110 # time to sleep each analysis loop
+    sleepCommand  = 0.100 # time to sleep after a command is sent
     dumpData    = False  # if True the base analysis code dumps data to a file
     logData     = True   # if True code writes info/error messages to a file
     running     = True   # used to signal treads to quit
@@ -37,6 +37,7 @@ class G(object):
     nextData    = 0      # used by findRecords()
     nextRecord  = 0      # used by decodeDataPayloads()
     lastFrame   = 0      # used in dataMethods for debugging
+    lastRF      = 0      # used in dataMethods for debugging
 
     # used by data analysis
     lastFixedConfig  = 0        # the last fixed config record received

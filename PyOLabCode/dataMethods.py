@@ -178,7 +178,8 @@ def decodeDataPayloads():
             nSens = r[6]        # number of sensors in this data record
 
             if frameNumber - G.lastFrame > 1:
-                G.logFile.write("\nframeNumber "+str(frameNumber)+", lastFrame "+str(G.lastFrame))
+                G.logFile.write("\nframeNumber "+str(frameNumber)+", lastFrame "+str(G.lastFrame)+", thisRF "+str(rfStatistics)+", lastRF "+str(G.lastRF))
+
 
             # this should be the same as the number expected for this config
             if nSens != len(G.lastSensorBytes):
@@ -200,7 +201,7 @@ def decodeDataPayloads():
 
                     # see if sensor had the overflow bit set
                     if G.logData and sensorOverflow:
-                        G.logFile.write("\noverflow on record "+str(n)+", frameNumber " +str(frameNumber)+", sensor "+str(thisSensor)+", nValidBytes "+str(nValidBytes)+" nSens "+str(nSens))
+                        G.logFile.write("\noverflow on record "+str(n)+", frameNumber " +str(frameNumber)+", lastFrame "+str(G.lastFrame)+", thisRF "+str(rfStatistics)+", lastRF "+str(G.lastRF)+", sensor "+str(thisSensor)+", nValidBytes "+str(nValidBytes)+" nSens "+str(nSens))
 
                     # this is where the the good stuff happens
                     extractSensorData(thisSensor,sensorBytes)
@@ -212,11 +213,15 @@ def decodeDataPayloads():
                     return
 
                 nSaved += 1
-                G.lastFrame = frameNumber
 
                 i += (2 + G.lastSensorBytes[thisSensor])
 
+            G.lastFrame = frameNumber
+            G.lastRF = rfStatistics
+
+
         G.nextRecord = nRec
+
 
 #======================================================================
 # Extracts the raw (uncalibrated) data from individual sensor sub-payloads. 
