@@ -103,7 +103,7 @@ def findRecords():
                             # shouldn't ever get here unless we are unlucky and the SOP and 
                             # recType matches were a fluke (which will happen now and then)
                             if G.logData:
-                                G.logFile.write("\nguessed wrong recType ' + hex(recType) + ' at i = "+str(i))
+                                G.logFile.write("\nguessed wrong recType " + hex(recType) + " at i = "+str(i))
                     else:
                         break
             i += 1
