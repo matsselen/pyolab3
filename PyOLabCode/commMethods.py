@@ -37,7 +37,8 @@ def getIOLabPortName():
     pList = []
     for port in ports:
          pInfo = list(port)
-         if 'IOLab' in pInfo[1]:
+         G.logFile.write("\npInfo: "+str(pInfo))
+         if 'IOLab' in pInfo[1] or 'PID=1881' in pInfo[2]:
             pList.append(pInfo)
 
     nFound = len(pList)

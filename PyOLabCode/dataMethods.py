@@ -100,7 +100,8 @@ def findRecords():
                             i = G.nextData - 1         # since we are adding 1 after the break
                             break
                         else:
-                            # shouldn't ever get here but check just in case
+                            # shouldn't ever get here unless we are unlucky and the SOP and 
+                            # recType matches were a fluke (which will happen now and then)
                             if G.logData:
                                 G.logFile.write("\nguessed wrong recType ' + hex(recType) + ' at i = "+str(i))
                     else:
@@ -172,7 +173,8 @@ def decodeDataPayloads():
         for n in range(G.nextRecord,nRec):
             r = G.recDict[G.recType_dataFromRemote][n]
 
-            recSequence = r[5]  # record sequence byte (incremented every record)
+            frameNumber = r[4]  # hardware frame byte (wraps after 255)
+            rfStatistics = r[5] # indicated which frequency set was used (0, 1, 2 or 3)
             nSens = r[6]        # number of sensors in this data record
 
             # this should be the same as the number expected for this config
@@ -188,14 +190,14 @@ def decodeDataPayloads():
                 thisSensor = r[i] & 0x7F            # ID of the current sensor
                 sensorOverflow = r[i] > thisSensor  # is overflow bit set?
 
-                # the first couple if records may have the overflow bit set
-                if G.logData and sensorOverflow:
-                    G.logFile.write("\noverflow on recSequence " +str(recSequence)+" sensor "+str(thisSensor)+" nSaved "+str(nSaved)+" nSens "+str(nSens))
-
                 # make sure thisSensor is on the list of expected sensors for this config
                 if thisSensor in G.lastSensorBytes:
                     nValidBytes = r[i+1]
                     sensorBytes = r[i+2:i+2+nValidBytes]
+
+                    # see if sensor had the overflow bit set
+                    if G.logData and sensorOverflow:
+                        G.logFile.write("\noverflow on record "+str(n)+", frameNumber " +str(frameNumber)+", sensor "+str(thisSensor)+", nValidBytes "+str(nValidBytes)+" nSens "+str(nSens))
 
                     # this is where the the good stuff happens
                     extractSensorData(thisSensor,sensorBytes)
