@@ -188,8 +188,11 @@ def decodeDataPayloads():
                     G.logFile.write("\nsensors found "+str(nSens)+" expected "+str(len(G.lastSensorBytes)))
                     G.logFile.write("this can happen if you havent sent a getPacketConfig command")
 
-            i = 7        # pointer to info and data from first sensor
-            nSaved = 0   # the number of sensors we have saved data from
+            i = 7               # pointer to info and data from first sensor
+            nSaved = 0          # the number of sensors we have saved data from    
+            dbgSensorBytes = {} #  Dict for debugging purposes
+            nOflow = 0 
+
             while nSaved < nSens:
                 thisSensor = r[i] & 0x7F            # ID of the current sensor
                 sensorOverflow = r[i] > thisSensor  # is overflow bit set?
@@ -199,8 +202,11 @@ def decodeDataPayloads():
                     nValidBytes = r[i+1]
                     sensorBytes = r[i+2:i+2+nValidBytes]
 
+                    dbgSensorBytes[thisSensor] = str(nValidBytes)+"/"+str(G.lastSensorBytes[thisSensor])
+
                     # see if sensor had the overflow bit set
                     if G.logData and sensorOverflow:
+                        nOflow += 1
                         G.logFile.write("\noverflow on record "+str(n)+", frameNumber " +str(frameNumber)+", lastFrame "+str(G.lastFrame)+", thisRF "+str(rfStatistics)+", lastRF "+str(G.lastRF)+", sensor "+str(thisSensor)+", nValidBytes "+str(nValidBytes)+" nSens "+str(nSens))
 
                     # this is where the the good stuff happens
@@ -219,8 +225,13 @@ def decodeDataPayloads():
             G.lastFrame = frameNumber
             G.lastRF = rfStatistics
 
+            # dump some info every 1000 records
+            if (n % 1000 == 0 or nOflow > 0) and G.logData: 
+                G.logFile.write("\n*"+str(n)+"-"+str(dbgSensorBytes))
+
 
         G.nextRecord = nRec
+
 
 
 #======================================================================

@@ -71,7 +71,6 @@ def openIOLabPort(pName):
     serialport.baudrate = 115200
     serialport.timeout  = 1
     G.port = serialport
-
     return serialport
 
 
