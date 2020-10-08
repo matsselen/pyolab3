@@ -177,6 +177,9 @@ def decodeDataPayloads():
             rfStatistics = r[5] # indicated which frequency set was used (0, 1, 2 or 3)
             nSens = r[6]        # number of sensors in this data record
 
+            if frameNumber - G.lastFrame > 1:
+                G.logFile.write("\nframeNumber "+str(frameNumber)+", lastFrame "+str(G.lastFrame))
+
             # this should be the same as the number expected for this config
             if nSens != len(G.lastSensorBytes):
 
@@ -209,6 +212,7 @@ def decodeDataPayloads():
                     return
 
                 nSaved += 1
+                G.lastFrame = frameNumber
 
                 i += (2 + G.lastSensorBytes[thisSensor])
 
