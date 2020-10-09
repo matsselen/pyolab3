@@ -177,21 +177,25 @@ def decodeDataPayloads():
             rfStatistics = r[5] # indicated which frequency set was used (0, 1, 2 or 3)
             nSens = r[6]        # number of sensors in this data record
 
-            if frameNumber - G.lastFrame > 1:
+            # write some info if frame numbers are not adjacent. (This will not catch missing
+            # frames that happened while the number wrapped from 255-0)
+            if G.logData and frameNumber - G.lastFrame > 1:
                 G.logFile.write("\nframeNumber "+str(frameNumber)+", lastFrame "+str(G.lastFrame)+", thisRF "+str(rfStatistics)+", lastRF "+str(G.lastRF))
 
 
             # this should be the same as the number expected for this config
-            if nSens != len(G.lastSensorBytes):
+            if nSens != len(G.lastSensorBytes):G.logData and 
 
                 if G.logData:
                     G.logFile.write("\nsensors found "+str(nSens)+" expected "+str(len(G.lastSensorBytes)))
                     G.logFile.write("this can happen if you havent sent a getPacketConfig command")
 
             i = 7               # pointer to info and data from first sensor
-            nSaved = 0          # the number of sensors we have saved data from    
-            dbgSensorBytes = {} #  Dict for debugging purposes
-            nOflow = 0 
+            nSaved = 0          # the number of sensors we have saved data from
+
+
+            dbgSensorBytes = {} # Dict for debugging purposes
+            nOflow = 0          # used to signal some info to be written after an overflow
 
             while nSaved < nSens:
                 thisSensor = r[i] & 0x7F            # ID of the current sensor
@@ -222,7 +226,8 @@ def decodeDataPayloads():
 
                 i += (2 + G.lastSensorBytes[thisSensor])
 
-            # dump some info every 1000 records
+            # dump some useful info every 1000 records or if an overflow happened
+            # or if framenumbers were out of sequence
             if (n % 1000 == 0 or nOflow > 0 or frameNumber - G.lastFrame > 1) and G.logData: 
                 G.logFile.write("\n*"+str(n)+"-"+str(dbgSensorBytes))
 
