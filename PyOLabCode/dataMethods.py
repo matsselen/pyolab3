@@ -184,7 +184,7 @@ def decodeDataPayloads():
 
 
             # this should be the same as the number expected for this config
-            if nSens != len(G.lastSensorBytes):G.logData and 
+            if nSens != len(G.lastSensorBytes): 
 
                 if G.logData:
                     G.logFile.write("\nsensors found "+str(nSens)+" expected "+str(len(G.lastSensorBytes)))
