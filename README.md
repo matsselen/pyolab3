@@ -68,7 +68,7 @@ Example of some global user variables used by the user methods.
 
 ---
 
-## AnalogtExample 
+## AnalogExample 
 
 Sample code that reads the A7, A8, A9 analog inputs and controls the DAC output.
 
