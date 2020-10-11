@@ -51,7 +51,10 @@ def main():
     
     # This causes the raw data to be dumped to a file called "data.txt" in
     # the working directory
-    G.dumpData = True
+    G.dumpData = False
+    G.debugData = True
+    G.logData = True
+
     
     if not startItUp():
         print("Problems getting things started...bye")

@@ -199,6 +199,7 @@ def decodeDataPayloads():
 
             while nSaved < nSens:
                 thisSensor = r[i] & 0x7F            # ID of the current sensor
+                overflowBit = r[i]>>7               # 1 if overflow, otherwise 0
                 sensorOverflow = r[i] > thisSensor  # is overflow bit set?
 
                 # make sure thisSensor is on the list of expected sensors for this config
@@ -206,6 +207,17 @@ def decodeDataPayloads():
                     nValidBytes = r[i+1]
                     sensorBytes = r[i+2:i+2+nValidBytes]
 
+                    if G.debugData:
+                        if sensorBytes == G.lastBytes:
+                            G.debugFile.write("\n\n"+str(frameNumber)+" : "+str(thisSensor)+" : "+str(overflowBit)+" : "+str(sensorBytes))
+                            G.debugFile.write("\n"+str(G.lastFrame)+" : "+str(thisSensor)+" : "+str(G.lastOverflow)+" : "+str(G.lastBytes))
+
+                        #G.debugFile.write("\n"+str(frameNumber)+" : "+str(thisSensor)+" : "+str(overflowBit)+" : "+str(nValidBytes)+" : "+str(sensorBytes))
+
+                    G.lastBytes = sensorBytes
+                    G.lastOverflow = overflowBit
+
+                    # for debugging purposes
                     dbgSensorBytes[thisSensor] = str(nValidBytes)+"/"+str(G.lastSensorBytes[thisSensor])
 
                     # see if sensor had the overflow bit set

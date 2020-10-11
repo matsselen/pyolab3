@@ -20,7 +20,8 @@ class G(object):
     sleepTimeAnal = 0.110 # time to sleep each analysis loop
     sleepCommand  = 0.100 # time to sleep after a command is sent
     dumpData    = False  # if True the base analysis code dumps data to a file
-    logData     = True   # if True code writes info/error messages to a file
+    debugData   = False  # if True this can be used to dump stuff to a debugging file
+    logData     = False  # if True code writes info/error messages to a file
     running     = True   # used to signal treads to quit
     configIsSet = False  # is it?
 
@@ -38,6 +39,8 @@ class G(object):
     nextRecord  = 0      # used by decodeDataPayloads()
     lastFrame   = 0      # used in dataMethods for debugging
     lastRF      = 0      # used in dataMethods for debugging
+    lastBytes   = 0      # used in dataMethods for debugging
+    lastOverflow = 0     # used in dataMethods for debugging
 
     # used by data analysis
     lastFixedConfig  = 0        # the last fixed config record received

@@ -54,12 +54,17 @@ def setupGlobalVariables():
 # 
 def startItUp():
 
-    # open log file if needed
+    # open log output file if needed
     if G.logData:
         G.logFile = open('log.txt','w') # file opened in pwd
-    # open output file if needed
+
+    # open data output file if needed
     if G.dumpData:
         G.outputFile = open('data.txt','w') # file opened in pwd
+
+    # open data output file if needed
+    if G.debugData:
+        G.debugFile = open('debug.txt','w') # file opened in pwd
 
     # Start by finding the serial port that the IOLab dongle is plugged into
     portName = getIOLabPortName()
