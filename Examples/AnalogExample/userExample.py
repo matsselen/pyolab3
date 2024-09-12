@@ -13,13 +13,12 @@ import time
 from tkinter import *           #This interface allow us to draw windows
 
 # local common code
-sys.path.append('../PyOLabCode/')
-from analClass import AnalysisClass
-from pyolabGlobals import G
+from pyolab3.analClass import AnalysisClass
+from pyolab3.pyolabGlobals import G
 from userGlobals import U
 
-from commMethods import *
-from setupMethods import *
+from pyolab3.commMethods import *
+from pyolab3.setupMethods import *
 
 # local user code
 from userMethods import *

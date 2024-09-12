@@ -13,7 +13,7 @@ import time
 
 # local common code
 sys.path.append('../PyOLabCode/')
-from commMethods import *
+from pyolab3.commMethods import *
 
 """
 This is example main() code that opens the serial port, asks the 

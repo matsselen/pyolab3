@@ -12,9 +12,8 @@ import time
 
 
 # local common code
-sys.path.append('../PyOLabCode/')
-from pyolabGlobals import G
-from dataMethods import *
+from pyolab3.pyolabGlobals import G
+from pyolab3.dataMethods import *
 
 # local user code
 from userGlobals import U
