@@ -28,3 +28,7 @@ platforms = ["win-64"]
 pyolab3 = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+pyserial = ">=3.5,<4"
+numpy = ">=2.1.1,<3"

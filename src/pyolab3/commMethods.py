@@ -13,7 +13,7 @@ import serial.tools.list_ports
 from threading import Thread
 
 # local stuff
-from pyolabGlobals import G
+from .pyolabGlobals import G
 
 
 """
