@@ -11,10 +11,10 @@ import time
 import numpy as np
 
 # local stuff
-from analClass import AnalysisClass
-from pyolabGlobals import G
-from commMethods import *
-from dataMethods import *
+from .analClass import AnalysisClass
+from .pyolabGlobals import G
+from .commMethods import *
+from .dataMethods import *
 
 """
 These methods are focused on setting up the IOLab system, initializing the 

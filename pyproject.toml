@@ -1,0 +1,34 @@
+[project]
+authors = [
+    {name = "Mats Selen", email = "mats@illinois.edu"},
+ ]
+dependencies = []
+description = "Pyolab3 is a suite of Python 3 routines that gives users complete control of an IOLab system."
+name = "pyolab3"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License"
+]
+requires-python = ">= 3.6"
+version = "0.3.3"
+
+[project.urls]
+Homepage = "https://github.com/matsselen/pyolab3"
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[tool.pixi.pypi-dependencies]
+pyolab3 = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+pyserial = ">=3.5,<4"
+numpy = ">=2.1.1,<3"

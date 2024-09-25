@@ -11,8 +11,8 @@ import time
 import numpy as np
 
 # local stuff
-from pyolabGlobals import G
-from iolabInfo import *
+from .pyolabGlobals import G
+from .iolabInfo import *
 
 """
 These methods are focused on dealing with the data received 

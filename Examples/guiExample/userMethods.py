@@ -12,10 +12,9 @@ import time
 from tkinter import *
 
 # local common code
-sys.path.append('../PyOLabCode/')
-from pyolabGlobals import G
-from dataMethods import *
-from commMethods import *
+from pyolab3.pyolabGlobals import G
+from pyolab3.dataMethods import *
+from pyolab3.commMethods import *
 
 # local user code
 from userGlobals import U

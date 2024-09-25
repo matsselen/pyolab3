@@ -92,6 +92,10 @@ __4. Run the example code:__ You are now ready to try it out. Plug in your Dongl
 
 ---
 
+## Developers
+
+If you would like to use the source code for this repository, you will need the package manager [pixi](https://pixi.sh/latest/). Pixi remembers and installs the correct Python dependencies for this project and stores them locally so that they do not interfere with other projects. Install pixi, then open a terminal, navigate to this repository, and use the command `pixi install`. See the documentation for pixi if you would like to add or change any dependencies.
+
 ## License
 Use this code at your own risk in accordance with the Open Source BSD-3-Clause license. 
 
